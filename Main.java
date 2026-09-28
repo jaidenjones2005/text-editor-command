@@ -5,45 +5,34 @@ public class Main {
         TextEditor editor = new TextEditor();
         EditorApp app = new EditorApp();
 
-        Command firstInsert =
-                new InsertCommand(editor, "Hello", 0);
+        // Insert the original text
+        Command insertCommand =
+                new InsertCommand(editor, "Hello World!", 0);
 
-        Command secondInsert =
-                new InsertCommand(editor, " World", 5);
+        app.executeCommand(insertCommand);
 
-        Command thirdInsert =
-                new InsertCommand(editor, "!", 11);
+        System.out.println(
+                "After insert: \"" + editor.getContent() + "\""
+        );
 
-        // Execute first command
-        app.executeCommand(firstInsert);
-        System.out.println("After first insert: \""
-                + editor.getContent() + "\"");
+        // Delete "World"
+        // Hello World!
+        //       ^^^^^
+        //       6 - 11
+        Command deleteCommand =
+                new DeleteCommand(editor, 6, 11);
 
-        // Execute second command
-        app.executeCommand(secondInsert);
-        System.out.println("After second insert: \""
-                + editor.getContent() + "\"");
+        app.executeCommand(deleteCommand);
 
-        // Execute third command
-        app.executeCommand(thirdInsert);
-        System.out.println("After third insert: \""
-                + editor.getContent() + "\"");
+        System.out.println(
+                "After delete: \"" + editor.getContent() + "\""
+        );
 
-        System.out.println();
-
-        // Undo third command
+        // Undo the deletion
         app.undo();
-        System.out.println("After first undo: \""
-                + editor.getContent() + "\"");
 
-        // Undo second command
-        app.undo();
-        System.out.println("After second undo: \""
-                + editor.getContent() + "\"");
-
-        // Undo first command
-        app.undo();
-        System.out.println("After third undo: \""
-                + editor.getContent() + "\"");
+        System.out.println(
+                "After undo: \"" + editor.getContent() + "\""
+        );
     }
 }

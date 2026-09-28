@@ -14,6 +14,10 @@ public class TextEditor {
         content.delete(start, end);
     }
 
+    public String getText(int start, int end) {
+        return content.substring(start, end);
+    }
+
     public String getContent() {
         return content.toString();
     }

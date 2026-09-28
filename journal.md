@@ -31,3 +31,14 @@ If a Queue was used instead, it would follow First-In, First-Out
 behavior. This would undo the oldest command first instead of the most
 recent command, which would not match how users expect an undo feature
 to work.
+# Phase 4 - Expanding Capabilities
+
+InsertCommand only needs to remember the text that was inserted and its
+position because that information tells it exactly what needs to be
+removed during undo.
+
+DeleteCommand needs to capture more previous state because once text is
+deleted, that information would otherwise be lost. Before deleting the
+text, the command has to save the removed characters and their original
+position. This allows undo() to restore the exact text to the correct
+location.
