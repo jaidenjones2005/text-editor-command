@@ -31,3 +31,28 @@ If a Queue was used instead, it would follow First-In, First-Out
 behavior. This would undo the oldest command first instead of the most
 recent command, which would not match how users expect an undo feature
 to work.
+# Phase 4 - Expanding Capabilities
+
+InsertCommand only needs to remember the text that was inserted and its
+position because that information tells it exactly what needs to be
+removed during undo.
+
+DeleteCommand needs to capture more previous state because once text is
+deleted, that information would otherwise be lost. Before deleting the
+text, the command has to save the removed characters and their original
+position. This allows undo() to restore the exact text to the correct
+location.
+# Phase 5 - Macro Commands
+
+MacroCommand demonstrates the Composite Pattern because it groups multiple
+Command objects together while also implementing the Command interface
+itself. This means the group of commands can be treated the same way as
+one individual command.
+
+EditorApp does not need to know that the MacroCommand contains several
+different actions. It simply calls execute() or undo() like it would with
+any other Command. This allows a complex sequence, such as inserting a
+header, newline, and footer, to behave like one button press.
+
+The commands are undone in reverse order so that each operation is
+reversed in the correct sequence.

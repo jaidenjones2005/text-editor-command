@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -5,34 +7,37 @@ public class Main {
         TextEditor editor = new TextEditor();
         EditorApp app = new EditorApp();
 
-        // Insert the original text
-        Command insertCommand =
-                new InsertCommand(editor, "Hello World!", 0);
+        // Create the individual commands for our template
+        Command header =
+                new InsertCommand(editor, "=== TRAVEL NOTES ===", 0);
 
-        app.executeCommand(insertCommand);
+        Command newLine =
+                new InsertCommand(editor, "\n", 20);
 
-        System.out.println(
-                "After insert: \"" + editor.getContent() + "\""
+        Command footer =
+                new InsertCommand(editor, "=== END ===", 21);
+
+        // Combine the commands into one MacroCommand
+        Command templateMacro = new MacroCommand(
+                List.of(header, newLine, footer)
         );
 
-        // Delete "World"
-        // Hello World!
-        //       ^^^^^
-        //       6 - 11
-        Command deleteCommand =
-                new DeleteCommand(editor, 6, 11);
-
-        app.executeCommand(deleteCommand);
-
         System.out.println(
-                "After delete: \"" + editor.getContent() + "\""
+                "Before macro:\n\"" + editor.getContent() + "\""
         );
 
-        // Undo the deletion
+        // EditorApp treats the entire macro as one command
+        app.executeCommand(templateMacro);
+
+        System.out.println(
+                "\nAfter macro:\n" + editor.getContent()
+        );
+
+        // One undo removes the entire macro
         app.undo();
 
         System.out.println(
-                "After undo: \"" + editor.getContent() + "\""
+                "\nAfter one undo:\n\"" + editor.getContent() + "\""
         );
     }
 }
