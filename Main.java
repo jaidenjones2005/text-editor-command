@@ -5,17 +5,45 @@ public class Main {
         TextEditor editor = new TextEditor();
         EditorApp app = new EditorApp();
 
-        Command insertCommand =
-                new InsertCommand(editor, "Hello World!", 0);
+        Command firstInsert =
+                new InsertCommand(editor, "Hello", 0);
 
-        System.out.println("Before insert: \"" + editor.getContent() + "\"");
+        Command secondInsert =
+                new InsertCommand(editor, " World", 5);
 
-        app.executeCommand(insertCommand);
+        Command thirdInsert =
+                new InsertCommand(editor, "!", 11);
 
-        System.out.println("After insert: \"" + editor.getContent() + "\"");
+        // Execute first command
+        app.executeCommand(firstInsert);
+        System.out.println("After first insert: \""
+                + editor.getContent() + "\"");
 
+        // Execute second command
+        app.executeCommand(secondInsert);
+        System.out.println("After second insert: \""
+                + editor.getContent() + "\"");
+
+        // Execute third command
+        app.executeCommand(thirdInsert);
+        System.out.println("After third insert: \""
+                + editor.getContent() + "\"");
+
+        System.out.println();
+
+        // Undo third command
         app.undo();
+        System.out.println("After first undo: \""
+                + editor.getContent() + "\"");
 
-        System.out.println("After undo: \"" + editor.getContent() + "\"");
+        // Undo second command
+        app.undo();
+        System.out.println("After second undo: \""
+                + editor.getContent() + "\"");
+
+        // Undo first command
+        app.undo();
+        System.out.println("After third undo: \""
+                + editor.getContent() + "\"");
     }
 }

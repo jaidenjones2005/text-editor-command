@@ -20,3 +20,14 @@ undo() on it.
 This also makes the program easier to expand because different commands
 can have different undo behavior without adding a lot of extra logic to
 EditorApp.
+# Phase 3 - Command History
+
+A Stack is ideal for undo operations because it follows Last-In,
+First-Out behavior. The most recent command is placed on top of the
+stack, so it is also the first command removed when the user chooses
+undo.
+
+If a Queue was used instead, it would follow First-In, First-Out
+behavior. This would undo the oldest command first instead of the most
+recent command, which would not match how users expect an undo feature
+to work.

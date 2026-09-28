@@ -10,3 +10,13 @@ dependent on the TextEditor implementation. As more actions are added,
 such as deleting or replacing text, EditorApp would need more logic and
 would become harder to maintain. Using commands keeps those operations
 separate and makes it easier to add new ones.
+# Phase 2 - Basic Undo
+
+Having each Command object responsible for its own undo logic keeps the
+EditorApp simple because EditorApp does not need to know how each action
+should be reversed. It only needs to remember the last command and call
+undo() on it.
+
+This also makes the program easier to expand because different commands
+can have different undo behavior without adding a lot of extra logic to
+EditorApp.
